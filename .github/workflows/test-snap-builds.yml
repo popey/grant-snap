@@ -23,8 +23,8 @@ jobs:
       - name: Show log on build failure
         if: ${{ failure() }}
         run: |
-        cat /home/runner/.local/state/snapcraft/log/snapcraft*.log
-        exit 1
+          cat /home/runner/.local/state/snapcraft/log/snapcraft*.log
+          exit 1
 
       - name: Review snap
         uses: diddlesnaps/snapcraft-review-action@v1
