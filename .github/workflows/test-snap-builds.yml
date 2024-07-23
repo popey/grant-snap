@@ -1,12 +1,11 @@
 name: 🧪 Test snap builds on x86_64
 
 on:
+  workflow_dispatch:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
-
-on: workflow_dispatch
 
 jobs:
   build:
