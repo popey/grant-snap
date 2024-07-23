@@ -17,7 +17,7 @@ jobs:
 
       - name: Build snap
         uses: snapcore/action-build@v1
-        id: build
+        id: snapcraft
 
       - name: Show log on build failure
         if: ${{ failure() }}
@@ -28,11 +28,11 @@ jobs:
       - name: Review snap
         uses: diddlesnaps/snapcraft-review-action@v1
         with:
-          snap: ${{ steps.build.outputs.snap }}
+          snap: ${{ steps.snapcraft.outputs.snap }}
           isClassic: 'false'
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v2
         with:
-        name: 'snap'
-        path: ${{ steps.snapcraft.outputs.snap}}
+          name: 'snap'
+          path: ${{ steps.snapcraft.outputs.snap}}
