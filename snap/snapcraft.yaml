@@ -12,38 +12,43 @@ platforms:
   arm64:
     build-on: [arm64]
     build-for: [arm64]
-  armhf:
-    build-on: [armhf]
-    build-for: [armhf]
+#  armhf:
+#    build-on: [armhf]
+#    build-for: [armhf]
   s390x:
     build-for: [s390x]
     build-on: [s390x]
   ppc64el:
     build-for: [ppc64el]
     build-on: [ppc64el]
-  riscv64:
-    build-on: [riscv64]
-    build-for: [riscv64]
+#  riscv64:
+#    build-on: [riscv64]
+#    build-for: [riscv64]
 
 grade: stable
-confinement: strict
+confinement: classic
 
 parts:
   grant:
-    plugin: go
-    source: https://github.com/anchore/grant.git
-    source-type: git
-    source-tag: 'v0.2.1'
-    prime:
-      - bin/grant
-    build-snaps:
-      - go
+    plugin: nil
+    source: https://github.com/anchore/${SNAPCRAFT_PROJECT_NAME}/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/${SNAPCRAFT_PROJECT_NAME}_${SNAPCRAFT_PROJECT_VERSION}_linux_${CRAFT_ARCH_BUILD_FOR}.tar.gz
+    override-pull: |
+      upstream_arch="$CRAFT_ARCH_BUILD_FOR"
+      # Go releaser uses a different nomenclature for architecture on ppc64
+      if [ "$CRAFT_ARCH_BUILD_FOR" == "ppc64el" ]; then
+        upstream_arch="ppc64le"
+      fi
+      ver_no_v=$(echo $SNAPCRAFT_PROJECT_VERSION | tr -d "v")
+      wget -O grant.tar.gz https://github.com/anchore/${SNAPCRAFT_PROJECT_NAME}/releases/download/${SNAPCRAFT_PROJECT_VERSION}/${SNAPCRAFT_PROJECT_NAME}_${ver_no_v}_linux_${upstream_arch}.tar.gz
+      tar zxvf grant.tar.gz
+      mkdir "$SNAPCRAFT_PART_INSTALL"/bin
+      install LICENSE  "$SNAPCRAFT_PART_INSTALL"
+      install README.md "$SNAPCRAFT_PART_INSTALL"
+      install CHANGELOG.md "$SNAPCRAFT_PART_INSTALL"
+      install grant "$SNAPCRAFT_PART_INSTALL"/bin
 
 apps:
   grant:
     command: bin/grant
-    plugs:
-      - network
-      - home
-      - removable-media
+
 
