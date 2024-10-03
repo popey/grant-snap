@@ -1,6 +1,6 @@
 name: grant
 base: core24
-version: 0.2.2
+version: "v0.2.2"
 summary: Verify licenses in the SBOM
 description: |
   Search an SBOM for licenses and the packages they belong to
@@ -31,7 +31,7 @@ confinement: classic
 parts:
   grant:
     plugin: nil
-    source: https://github.com/anchore/${SNAPCRAFT_PROJECT_NAME}/releases/download/v${SNAPCRAFT_PROJECT_VERSION}/${SNAPCRAFT_PROJECT_NAME}_${SNAPCRAFT_PROJECT_VERSION}_linux_${CRAFT_ARCH_BUILD_FOR}.tar.gz
+    source: https://github.com/anchore/${SNAPCRAFT_PROJECT_NAME}/releases/download/${SNAPCRAFT_PROJECT_VERSION}/${SNAPCRAFT_PROJECT_NAME}_${SNAPCRAFT_PROJECT_VERSION}_linux_${CRAFT_ARCH_BUILD_FOR}.tar.gz
     override-pull: |
       upstream_arch="$CRAFT_ARCH_BUILD_FOR"
       # Go releaser uses a different nomenclature for architecture on ppc64
