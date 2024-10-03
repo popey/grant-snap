@@ -46,7 +46,9 @@ parts:
       install README.md "$SNAPCRAFT_PART_INSTALL"
       install CHANGELOG.md "$SNAPCRAFT_PART_INSTALL"
       install grant "$SNAPCRAFT_PART_INSTALL"/bin
-
+    build-packages:
+      - wget
+      
 apps:
   grant:
     command: bin/grant
