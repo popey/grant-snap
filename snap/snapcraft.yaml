@@ -1,6 +1,6 @@
 name: grant
 base: core24
-version: v0.2.4
+version: v0.2.5
 summary: Verify licenses in the SBOM
 description: |
   Search an SBOM for licenses and the packages they belong to
